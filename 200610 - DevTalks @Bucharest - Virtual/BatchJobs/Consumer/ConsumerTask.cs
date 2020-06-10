@@ -31,8 +31,7 @@ namespace Consumer
             Console.WriteLine("Reading messages");
             while (true)
             {
-                //This emulates the CPU processing time
-                Thread.Sleep(1000);
+             Thread.Sleep(1000);
             }
         }
 
@@ -45,6 +44,7 @@ namespace Consumer
                 B = int.Parse(text[1])
             };
             var res = numbers.A + numbers.B;
+            //This emulates the CPU processing time
             await Task.Delay(1000, token);
             Console.WriteLine($"Processed: {numbers.A}+{numbers.B}={res} with id: {message.CorrelationId}");
 
