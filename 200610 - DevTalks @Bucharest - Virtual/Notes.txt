@@ -1,0 +1,20 @@
+Guidance
+https://docs.microsoft.com/en-us/azure/batch/batch-sig-images#prepare-a-managed-image
+
+Useful snippets
+az extension add --name image-copy-extension
+az image copy --source-resource-group DevTalks --source-object-name devtalks-dr-image-20200610092338 --target-location northeurope --target-resource-group devtalks
+az image create -g DevTalks -n NetCoreImage --os-type Linux --source <source>
+
+
+NETCore 3.1
+wget https://packages.microsoft.com/config/ubuntu/16.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt-get update
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-sdk-3.1 -y
+dotnet --info
+
+Task
+dotnet /mnt/batch/tasks/startup/wd/Consumer.dll
