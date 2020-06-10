@@ -26,11 +26,11 @@ namespace BatchController
                 new ClientCredential(Common.Constants.ClientId, Common.Constants.ClientKey));
 
             var cred = new BatchTokenCredentials(Common.Constants.BatchAccountUrl, authResult.AccessToken);
-            var howMany = 100;
 
             using (BatchClient batchClient = BatchClient.Open(cred))
             {
                 var jobId = $"Processor_{DateTime.UtcNow.Ticks}";
+                var pool = batchClient.PoolOperations.GetPool(Common.Constants.PoolName);
                 Console.WriteLine($"Creating job [{jobId}] on pool [{Common.Constants.PoolName}]");
                 CloudJob job = batchClient.JobOperations.CreateJob();
                 job.Id = jobId;
@@ -38,7 +38,7 @@ namespace BatchController
                 job.Commit();
 
                 var tasks = new List<CloudTask>();
-                for (int i = 0; i < howMany; i++)
+                for (int i = 0; i < pool.TargetDedicatedComputeNodes.Value; i++)
                 {
                     var taskId = $"{jobId}_{i}";
                     var taskCommandLine = "dotnet /mnt/batch/tasks/startup/wd/Consumer.dll";
