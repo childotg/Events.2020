@@ -1,0 +1,28 @@
+Intro slide heavy workloads
+- Memory/Data intensive
+- I/O intensive
+- CPU intensive
+
+Scenario slide
+Message-driven environment
+- Producer: math operations
+- Consumer: process result and produce it
+- Viewer: view results
+Issues:
+- Consumer takes 1 CPU second per message
+
+Solution slide
+- Scale the consumer on 100 machines
+- Do it elegantly
+
+
+Provisioning:
+- Service Bus
+- Storage Account
+- KeyVault
+- Batch account
+- Linux VM 
+
+
+az image create -g gabdr -n GABImage --os-type Linux \
+    --source /subscriptions/[...]/resourceGroups/gabdr/providers/Microsoft.Compute/snapshots/GABSS
